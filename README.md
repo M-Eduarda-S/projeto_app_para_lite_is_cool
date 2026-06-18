@@ -1,4 +1,4 @@
-# Projeto desenvolvimento de um app para o porjeto de extensão LITE IS COOL
+# Projeto de um aplicativo para o projeto de extensão LITE IS COOL
 
 ### Disciplina:
 Programação para Dispositivos Móveis
@@ -14,14 +14,14 @@ Programação para Dispositivos Móveis
 ---
 ## Descrição do Projeto
 
-Aplicativo Android que simula uma calculadora básica com operações de:
+Aplicativo Android que simula uma calculadora básica com operações de: (*complementar quando soubermos certinho o que vai ter!)
 - Soma
 
 <br /> <br /> 
 
 
 ### Funcionalidades
-- Tela de Login com validação
+- Tela de Login com validação (*complementar quando soubermos certinho o que vai ter!)
 - Exibição de diálogo de erro para credenciais inválidas
 - Tela de calculadora com operações básicas
 - Botões habilitados/desabilitados conforme entrada
@@ -44,7 +44,7 @@ Aplicativo Android que simula uma calculadora básica com operações de:
 <br />
 
 ## Fluxo do Aplicativo
-1. Usuário insere CPF e senha
+1. Usuário insere CPF e senha (*complementar quando soubermos certinho o que vai ter!)
 2. Se válido → vai para calculadora
 3. Se inválido → exibe diálogo de erro
 4. Realiza cálculo
@@ -65,7 +65,7 @@ Essa abordagem facilita a organização, manutenção e escalabilidade do códig
 
 ---
 ## Estrutura do projeto
-
+(*complementar quando soubermos certinho o que vai ter!)
 ```text
 app/
 	src/
