@@ -75,17 +75,6 @@ class CreateReportScreen extends StatelessWidget {
   );
 }
 
-class AttendanceScreen extends StatelessWidget {
-  const AttendanceScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) => const _PlaceholderScreen(
-    title: 'Presenças',
-    icon: Icons.people_alt_outlined,
-    description: 'Aqui será exibida a lista de presença dos participantes do projeto.',
-  );
-}
-
 class CalendarScreen extends StatelessWidget {
   const CalendarScreen({super.key});
 
@@ -111,13 +100,3 @@ class ReportDetailScreen extends StatelessWidget {
   }
 }
 
-class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) => const _PlaceholderScreen(
-    title: 'Notificações',
-    icon: Icons.notifications_none_outlined,
-    description: 'Aqui serão exibidos os seus avisos e notificações importantes.',
-  );
-}

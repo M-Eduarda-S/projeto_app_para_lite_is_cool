@@ -3,7 +3,7 @@ import '../models/user_model.dart';
 
 class HomeController {
   final UserModel user = const UserModel(
-    name: 'Aluninho da Silva',
+    name: 'Juliana Simon',
     role: 'Bolsista',
   );
 
