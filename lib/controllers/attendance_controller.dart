@@ -40,4 +40,18 @@ class AttendanceController {
   void togglePresence(int index) {
     students[index].isPresent = !students[index].isPresent;
   }
+
+  void addStudent(String name, int age) {
+    final id = (students.length + 1).toString();
+    students.add(StudentModel(
+      id: id,
+      name: name.toUpperCase(),
+      age: age,
+      isPresent: false,
+    ));
+  }
+
+  void deleteStudent(String id) {
+    students.removeWhere((student) => student.id == id);
+  }
 }

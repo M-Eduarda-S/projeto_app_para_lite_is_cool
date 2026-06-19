@@ -50,6 +50,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                             controller.togglePresence(index);
                           });
                         },
+                        onLongPress: () => _showDeleteConfirmation(context, student),
                       ),
                       if (index < controller.students.length - 1)
                         const Divider(color: Colors.white10, height: 1),
@@ -64,7 +65,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 children: [
                   Expanded(
                     flex: 3,
-                    child: _AddStudentButton(onTap: () {}),
+                    child: _AddStudentButton(onTap: () => _showAddStudentDialog(context)),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -76,6 +77,95 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showAddStudentDialog(BuildContext context) {
+    final nameController = TextEditingController();
+    final ageController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: cardDark,
+        title: const Text('Adicionar Novo Aluno', style: TextStyle(color: Colors.white)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: nameController,
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                labelText: 'Nome do Aluno',
+                labelStyle: TextStyle(color: Colors.white70),
+                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: ageController,
+              keyboardType: TextInputType.number,
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                labelText: 'Idade',
+                labelStyle: TextStyle(color: Colors.white70),
+                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar', style: TextStyle(color: Colors.white54)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: accentPurple),
+            onPressed: () {
+              if (nameController.text.isNotEmpty && ageController.text.isNotEmpty) {
+                setState(() {
+                  controller.addStudent(
+                    nameController.text,
+                    int.tryParse(ageController.text) ?? 0,
+                  );
+                });
+                Navigator.pop(context);
+              }
+            },
+            child: const Text('Adicionar', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDeleteConfirmation(BuildContext context, StudentModel student) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: cardDark,
+        title: const Text('Excluir Aluno', style: TextStyle(color: Colors.white)),
+        content: Text(
+          'Tem certeza que deseja remover ${student.name} da lista?',
+          style: const TextStyle(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar', style: TextStyle(color: Colors.white54)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+            onPressed: () {
+              setState(() {
+                controller.deleteStudent(student.id);
+              });
+              Navigator.pop(context);
+            },
+            child: const Text('Excluir', style: TextStyle(color: Colors.white)),
+          ),
+        ],
       ),
     );
   }
@@ -162,64 +252,73 @@ class _DateChip extends StatelessWidget {
 }
 
 class _StudentTile extends StatelessWidget {
-  const _StudentTile({required this.student, required this.onToggle});
+  const _StudentTile({
+    required this.student,
+    required this.onToggle,
+    required this.onLongPress,
+  });
   final StudentModel student;
   final VoidCallback onToggle;
+  final VoidCallback onLongPress;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: Colors.white12,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(Icons.face, color: Colors.white54, size: 32),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  student.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  '${student.age} anos',
-                  style: const TextStyle(color: Colors.white54, fontSize: 13),
-                ),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: onToggle,
-            child: Container(
-              width: 32,
-              height: 32,
+    return GestureDetector(
+      onLongPress: onLongPress,
+      behavior: HitTestBehavior.opaque,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Row(
+          children: [
+            Container(
+              width: 48,
+              height: 48,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: student.isPresent ? Colors.transparent : Colors.white24,
-                  width: 2,
-                ),
-                color: student.isPresent ? Colors.white : Colors.white12,
+                color: Colors.white12,
+                borderRadius: BorderRadius.circular(12),
               ),
-              child: student.isPresent
-                  ? const Icon(Icons.check, color: Color(0xFF1A1A2E), size: 20)
-                  : null,
+              child: const Icon(Icons.face, color: Colors.white54, size: 32),
             ),
-          ),
-        ],
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    student.name,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    '${student.age} anos',
+                    style: const TextStyle(color: Colors.white54, fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: onToggle,
+              child: Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: student.isPresent ? Colors.transparent : Colors.white24,
+                    width: 2,
+                  ),
+                  color: student.isPresent ? Colors.white : Colors.white12,
+                ),
+                child: student.isPresent
+                    ? const Icon(Icons.check, color: Color(0xFF1A1A2E), size: 20)
+                    : null,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
