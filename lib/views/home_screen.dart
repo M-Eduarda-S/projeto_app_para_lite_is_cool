@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../controllers/home_controller.dart';
 import '../models/report_model.dart';
 import '../routes/app_routes.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -57,8 +59,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// ─── Header ───────────────────────────────────────────────────────────────────
-
 class _Header extends StatelessWidget {
   const _Header({required this.controller});
   final HomeController controller;
@@ -73,14 +73,18 @@ class _Header extends StatelessWidget {
           children: [
             Text(
               controller.formattedToday,
-              style: const TextStyle(color: Colors.white54, fontSize: 13),
+              style: GoogleFonts.arimo(
+                color: Colors.white,
+                fontSize: 13,
+                fontWeight: FontWeight.normal,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
               'Olá, ${controller.user.firstName}!',
-              style: const TextStyle(
+              style: GoogleFonts.quicksand(
                 color: Colors.white,
-                fontSize: 26,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -93,21 +97,33 @@ class _Header extends StatelessWidget {
               children: [
                 Text(
                   controller.user.name,
-                  style: const TextStyle(color: Colors.white, fontSize: 13),
+                  style: GoogleFonts.arimo(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
                 Text(
                   controller.user.role,
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                  style: GoogleFonts.arimo(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ],
             ),
             const SizedBox(width: 10),
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, AppRoutes.settings),
-              child: const CircleAvatar(
-                radius: 24,
-                backgroundColor: Color(0xFF3D3D6B),
-                child: Icon(Icons.person, color: Colors.white54),
+            CircleAvatar(
+              radius: 24,
+              backgroundColor: const Color(0xFF3D3D6B),
+              child: ClipOval(
+                child: SvgPicture.asset(
+                  'assets/icons/user_icon.svg',
+                  width: 48,
+                  height: 48,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ],
@@ -116,8 +132,6 @@ class _Header extends StatelessWidget {
     );
   }
 }
-
-// ─── Banner "Dia chegou" ───────────────────────────────────────────────────────
 
 class _BannerCard extends StatelessWidget {
   const _BannerCard({required this.greeting, required this.onTap});
@@ -129,7 +143,8 @@ class _BannerCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 150,
+        height: 110,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           gradient: const LinearGradient(
@@ -138,48 +153,47 @@ class _BannerCard extends StatelessWidget {
             end: Alignment.centerRight,
           ),
         ),
-        padding: const EdgeInsets.all(20),
-        child: Row(
+        child: Stack(
+          clipBehavior: Clip.antiAlias,
           children: [
-            Expanded(
+            Positioned(
+              left: 20,
+              top: 0,
+              bottom: 0,
+              right: 140,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     greeting,
-                    style: const TextStyle(
+                    style: GoogleFonts.quicksand(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text.rich(
-                    TextSpan(
-                      text: 'Gostaria de iniciar um ',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                      children: [
-                        TextSpan(
-                          text: 'novo relatório',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        TextSpan(text: '?'),
-                      ],
+                  Text(
+                    'Gostaria de iniciar um novo relatório?',
+                    style: GoogleFonts.arimo(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: Colors.white12,
-                borderRadius: BorderRadius.circular(12),
+            Positioned(
+              right: 10,
+              top: -15,
+              bottom: 0,
+              child: SvgPicture.asset(
+                'assets/icons/dia_chegou.svg',
+                height: 112,
+                alignment: Alignment.bottomRight,
               ),
-              child: const Icon(Icons.add_circle_outline,
-                  color: Colors.white70, size: 42),
             ),
           ],
         ),
@@ -187,8 +201,6 @@ class _BannerCard extends StatelessWidget {
     );
   }
 }
-
-// ─── Quick actions (Presenças / Calendário) ───────────────────────────────────
 
 class _QuickActions extends StatelessWidget {
   const _QuickActions({
@@ -205,7 +217,7 @@ class _QuickActions extends StatelessWidget {
         Expanded(
           child: _ActionCard(
             label: 'Presenças',
-            icon: Icons.people_alt_outlined,
+            iconPath: 'assets/icons/presencas.svg',
             onTap: onAttendance,
           ),
         ),
@@ -213,7 +225,7 @@ class _QuickActions extends StatelessWidget {
         Expanded(
           child: _ActionCard(
             label: 'Calendário',
-            icon: Icons.calendar_today_outlined,
+            iconPath: 'assets/icons/calendario.svg',
             onTap: onCalendar,
           ),
         ),
@@ -225,11 +237,11 @@ class _QuickActions extends StatelessWidget {
 class _ActionCard extends StatelessWidget {
   const _ActionCard({
     required this.label,
-    required this.icon,
+    required this.iconPath,
     required this.onTap,
   });
   final String label;
-  final IconData icon;
+  final String iconPath;
   final VoidCallback onTap;
 
   @override
@@ -237,25 +249,41 @@ class _ActionCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 110,
+        height: 90,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: const Color(0xFF252542),
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Stack(
           children: [
-            Text(
-              label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
+            Positioned(
+              left: 16,
+              top: 0,
+              bottom: 0,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  label,
+                  style: GoogleFonts.quicksand(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-            Icon(icon, color: Colors.white54, size: 36),
+
+            Positioned(
+              right: 12,
+              bottom: 12,
+              top: 12,
+              child: SvgPicture.asset(
+                iconPath,
+                height: 75,
+                alignment: Alignment.bottomRight,
+              ),
+            ),
           ],
         ),
       ),
@@ -263,7 +291,7 @@ class _ActionCard extends StatelessWidget {
   }
 }
 
-// ─── Last Report Card ─────────────────────────────────────────────────────────
+
 
 class _ReportCard extends StatelessWidget {
   const _ReportCard({required this.report, required this.onTap});
@@ -276,15 +304,14 @@ class _ReportCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        clipBehavior: Clip.antiAlias, // Mantém o footer dentro das bordas arredondadas
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          color: Colors.white, // Fundo principal agora é branco
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Document preview
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -292,27 +319,28 @@ class _ReportCard extends StatelessWidget {
                 children: [
                   Text(
                     report.title,
-                    style: const TextStyle(
+                    style: GoogleFonts.quicksand(
+                      color: Colors.black,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black, // Ajustado para dar leitura no fundo branco
                     ),
                   ),
                   const SizedBox(height: 6),
-                  const Text(
+                  Text(
                     'Relatório geral:',
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
+                    style: GoogleFonts.arimo(
                       color: Colors.black87,
+                      fontSize: 10,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     report.generalContent,
-                    style: const TextStyle(
-                      fontSize: 10,
+                    style: GoogleFonts.arimo(
                       color: Colors.black54,
+                      fontSize: 10,
+                      fontWeight: FontWeight.normal,
                     ),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -320,10 +348,8 @@ class _ReportCard extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Footer
             Container(
-              color: const Color(0xFF252542), // Cor escura movida para o footer
+              color: const Color(0xFF252542),
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 12,
@@ -336,17 +362,18 @@ class _ReportCard extends StatelessWidget {
                     children: [
                       Text(
                         'Relatório ${report.shortDate}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                        style: GoogleFonts.quicksand(
                           color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
+                      Text(
                         'Clique para editar!',
-                        style: TextStyle(
-                          color: Colors.white54,
+                        style: GoogleFonts.arimo(
+                          color: Colors.white,
                           fontSize: 12,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ],
@@ -373,7 +400,7 @@ class _ReportCard extends StatelessWidget {
     );
   }
 }
-// ─── Last update banner ───────────────────────────────────────────────────────
+
 
 class _LastUpdateBanner extends StatelessWidget {
   const _LastUpdateBanner({required this.label});
@@ -382,6 +409,8 @@ class _LastUpdateBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 80,
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         gradient: const LinearGradient(
@@ -390,27 +419,31 @@ class _LastUpdateBanner extends StatelessWidget {
           end: Alignment.centerRight,
         ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-      child: Row(
+      child: Stack(
         children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: Colors.white24,
-              borderRadius: BorderRadius.circular(12),
+
+          Positioned(
+            left: 12,
+            bottom: 0,
+            child: SvgPicture.asset(
+              'assets/icons/ultima_att.svg',
+              height: 75,
             ),
-            child: const Icon(Icons.check_circle_outline,
-                color: Colors.white70, size: 28),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
+          Positioned(
+            left: 140,
+            right: 16,
+            top: 0,
+            bottom: 0,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                label,
+                style: GoogleFonts.quicksand(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -419,8 +452,6 @@ class _LastUpdateBanner extends StatelessWidget {
     );
   }
 }
-
-// ─── Bottom Navigation ────────────────────────────────────────────────────────
 
 class _BottomNav extends StatelessWidget {
   @override
@@ -431,24 +462,27 @@ class _BottomNav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          // Home (active)
           IconButton(
             icon: const Icon(Icons.dashboard, color: Colors.white, size: 28),
             onPressed: () {},
           ),
-          // New report
-          IconButton(
-            icon: const Icon(Icons.assignment_outlined,
-                color: Colors.white54, size: 28),
-            onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.createReport),
-          ),
-          // Attendance
           IconButton(
             icon: const Icon(Icons.group_outlined,
                 color: Colors.white54, size: 28),
             onPressed: () =>
                 Navigator.pushNamed(context, AppRoutes.attendance),
+          ),
+          IconButton(
+            icon: const Icon(Icons.calendar_today_outlined,
+                color: Colors.white54, size: 28),
+            onPressed: () =>
+                Navigator.pushNamed(context, AppRoutes.calendar),
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications_none,
+                color: Colors.white54, size: 28),
+            onPressed: () =>
+                Navigator.pushNamed(context, AppRoutes.notifications),
           ),
         ],
       ),
