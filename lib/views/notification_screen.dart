@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../controllers/notification_controller.dart';
 import '../models/notification_model.dart';
 import '../routes/app_routes.dart';
@@ -129,10 +130,17 @@ class _Header extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 10),
-            const CircleAvatar(
+            CircleAvatar(
               radius: 20,
-              backgroundColor: Color(0xFF3D3D6B),
-              child: Icon(Icons.face, color: Colors.white54, size: 28),
+              backgroundColor: const Color(0xFF3D3D6B),
+              child: ClipOval(
+                child: SvgPicture.asset(
+                  'assets/icons/user_icon.svg',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ],
         ),
