@@ -102,10 +102,13 @@ class _Header extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 10),
-            const CircleAvatar(
-              radius: 24,
-              backgroundColor: Color(0xFF3D3D6B),
-              child: Icon(Icons.person, color: Colors.white54),
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, AppRoutes.settings),
+              child: const CircleAvatar(
+                radius: 24,
+                backgroundColor: Color(0xFF3D3D6B),
+                child: Icon(Icons.person, color: Colors.white54),
+              ),
             ),
           ],
         ),
