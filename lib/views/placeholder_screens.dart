@@ -110,3 +110,14 @@ class ReportDetailScreen extends StatelessWidget {
     );
   }
 }
+
+class NotificationScreen extends StatelessWidget {
+  const NotificationScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) => const _PlaceholderScreen(
+    title: 'Notificações',
+    icon: Icons.notifications_none_outlined,
+    description: 'Aqui serão exibidos os seus avisos e notificações importantes.',
+  );
+}
