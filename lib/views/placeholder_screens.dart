@@ -99,3 +99,4 @@ class ReportDetailScreen extends StatelessWidget {
     );
   }
 }
+

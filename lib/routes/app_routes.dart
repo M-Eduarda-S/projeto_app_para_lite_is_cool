@@ -3,6 +3,7 @@ import '../views/home_screen.dart';
 import '../views/create_report_screen.dart';
 import '../views/attendance_screen.dart';
 import '../views/calendar_screen.dart';
+import '../views/notification_screen.dart';
 import '../views/report_detail_screen.dart';
 import '../views/notification_screen.dart';
 
