@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../controllers/home_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -19,16 +21,19 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.pop(context),
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
+              Transform.translate(
+                offset: const Offset(-12, 0),
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () => Navigator.pop(context),
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                ),
               ),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 'Configurações',
-                style: TextStyle(
+                style: GoogleFonts.quicksand(
                   color: Colors.white,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -47,10 +52,13 @@ class SettingsScreen extends StatelessWidget {
                             color: Color(0xFF2E2E5D),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(
-                            Icons.face, // Using Icons.face as a placeholder for the doodle
-                            size: 90,
-                            color: Colors.white,
+                          child: ClipOval(
+                            child: SvgPicture.asset(
+                              'assets/icons/user_icon.svg',
+                              width: 130,
+                              height: 130,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -73,19 +81,19 @@ class SettingsScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'Juliana Bertolazi Simon', // Using name from image
-                      style: TextStyle(
+                    Text(
+                      'Juliana Bertolazi Simon',
+                      style: GoogleFonts.quicksand(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 4),
-                    const Text(
-                      'Bolsista',
-                      style: TextStyle(
-                        color: Colors.white70,
+                    Text(
+                      user.role,
+                      style: GoogleFonts.arimo(
+                        color: Colors.white,
                         fontSize: 14,
                       ),
                     ),
@@ -138,7 +146,7 @@ class _SettingsOption extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: GoogleFonts.quicksand(
               color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -147,8 +155,8 @@ class _SettingsOption extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: const TextStyle(
-              color: Colors.white54,
+            style: GoogleFonts.arimo(
+              color: Colors.white,
               fontSize: 13,
             ),
           ),
@@ -181,7 +189,7 @@ class _SettingsToggleOptionState extends State<_SettingsToggleOption> {
       children: [
         Text(
           widget.title,
-          style: const TextStyle(
+          style: GoogleFonts.quicksand(
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w600,
