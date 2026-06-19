@@ -31,14 +31,14 @@ class HomeScreen extends StatelessWidget {
                 greeting: controller.weekdayGreeting,
                 onTap: () => Navigator.pushNamed(context, AppRoutes.createReport),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               _QuickActions(
                 onAttendance: () =>
                     Navigator.pushNamed(context, AppRoutes.attendance),
                 onCalendar: () =>
                     Navigator.pushNamed(context, AppRoutes.calendar),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               if (report != null)
                 _ReportCard(
                   report: report,
@@ -48,9 +48,9 @@ class HomeScreen extends StatelessWidget {
                     arguments: report,
                   ),
                 ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               _LastUpdateBanner(label: controller.lastUpdateLabel),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
             ],
           ),
         ),
@@ -462,27 +462,41 @@ class _BottomNav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          // 1. Home (Ativo - Branco)
           IconButton(
             icon: const Icon(Icons.dashboard, color: Colors.white, size: 28),
             onPressed: () {},
           ),
+          // 2. Presenças
           IconButton(
-            icon: const Icon(Icons.group_outlined,
-                color: Colors.white54, size: 28),
-            onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.attendance),
+            icon: const Icon(Icons.group_outlined, color: Colors.white54, size: 28),
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.attendance),
           ),
+          // 3. Calendário
           IconButton(
-            icon: const Icon(Icons.calendar_today_outlined,
-                color: Colors.white54, size: 28),
-            onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.calendar),
+            icon: const Icon(Icons.calendar_month_outlined, color: Colors.white54, size: 28),
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.calendar),
           ),
+          // 4. Notificações (Com a bolinha laranja!)
           IconButton(
-            icon: const Icon(Icons.notifications_none,
-                color: Colors.white54, size: 28),
-            onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.notifications),
+            icon: Stack(
+              children: [
+                const Icon(Icons.notifications_none_outlined, color: Colors.white54, size: 28),
+                Positioned(
+                  right: 2,
+                  top: 2,
+                  child: Container(
+                    width: 10,
+                    height: 10,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFF37B55), // Cor laranja exata da imagem
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.notifications),
           ),
         ],
       ),

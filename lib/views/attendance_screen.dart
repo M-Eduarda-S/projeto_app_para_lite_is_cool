@@ -13,10 +13,18 @@ class AttendanceScreen extends StatefulWidget {
 
 class _AttendanceScreenState extends State<AttendanceScreen> {
   final controller = AttendanceController();
+  late List<bool> draftPresence;
 
   static const Color bgColor = Color(0xFF1A1A2E);
   static const Color cardDark = Color(0xFF252542);
   static const Color accentPurple = Color(0xFF7B5EA7);
+
+  @override
+  void initState() {
+    super.initState();
+    // Create a local copy of the presence status
+    draftPresence = controller.students.map((s) => s.isPresent).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +55,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     children: [
                       _StudentTile(
                         student: student,
+                        isPresent: draftPresence[index], // Use the local draft
                         onToggle: () {
                           setState(() {
-                            controller.togglePresence(index);
+                            draftPresence[index] = !draftPresence[index];
                           });
                         },
-                        onLongPress: () => _showDeleteConfirmation(context, student),
+                        onLongPress: () => _showDeleteConfirmation(context, student, index),
                       ),
                       if (index < controller.students.length - 1)
                         const Divider(color: Colors.white10, height: 1),
@@ -72,7 +81,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   const SizedBox(width: 12),
                   Expanded(
                     flex: 2,
-                    child: _ConfirmButton(onTap: () => Navigator.pop(context)),
+                    child: _ConfirmButton(onTap: () {
+                      // Apply changes to the main controller only when confirming
+                      for (int i = 0; i < controller.students.length; i++) {
+                        controller.students[i].isPresent = draftPresence[i];
+                      }
+                      Navigator.pop(context);
+                    }),
                   ),
                 ],
               ),
@@ -131,6 +146,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     nameController.text,
                     int.tryParse(ageController.text) ?? 0,
                   );
+                  // Update draft list to match new student
+                  draftPresence.add(false);
                 });
                 Navigator.pop(context);
               }
@@ -142,7 +159,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     );
   }
 
-  void _showDeleteConfirmation(BuildContext context, StudentModel student) {
+  void _showDeleteConfirmation(BuildContext context, StudentModel student, int index) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -162,6 +179,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             onPressed: () {
               setState(() {
                 controller.deleteStudent(student.id);
+                draftPresence.removeAt(index); // Update draft list
               });
               Navigator.pop(context);
             },
@@ -206,10 +224,17 @@ class _Header extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 10),
-            const CircleAvatar(
+            CircleAvatar(
               radius: 20,
-              backgroundColor: Color(0xFF3D3D6B),
-              child: Icon(Icons.face, color: Colors.white54, size: 28),
+              backgroundColor: const Color(0xFF3D3D6B),
+              child: ClipOval(
+                child: SvgPicture.asset(
+                  'assets/icons/user_icon.svg',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ],
         ),
@@ -256,10 +281,12 @@ class _DateChip extends StatelessWidget {
 class _StudentTile extends StatelessWidget {
   const _StudentTile({
     required this.student,
+    required this.isPresent,
     required this.onToggle,
     required this.onLongPress,
   });
   final StudentModel student;
+  final bool isPresent;
   final VoidCallback onToggle;
   final VoidCallback onLongPress;
 
@@ -272,19 +299,12 @@ class _StudentTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 48,
               height: 48,
-              decoration: BoxDecoration(
-                color: Colors.white12,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: SvgPicture.asset(
-                  'assets/icons/presencas.svg',
-                  fit: BoxFit.contain,
-                ),
+              child: SvgPicture.asset(
+                student.iconPath,
+                fit: BoxFit.contain,
               ),
             ),
             const SizedBox(width: 16),
@@ -315,12 +335,12 @@ class _StudentTile extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: student.isPresent ? Colors.transparent : Colors.white24,
+                    color: isPresent ? Colors.transparent : Colors.white24,
                     width: 2,
                   ),
-                  color: student.isPresent ? Colors.white : Colors.white12,
+                  color: isPresent ? Colors.white : Colors.white12,
                 ),
-                child: student.isPresent
+                child: isPresent
                     ? const Icon(Icons.check, color: Color(0xFF1A1A2E), size: 20)
                     : null,
               ),
@@ -412,7 +432,7 @@ class _BottomNav extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.calendar_today_outlined,
                 color: Colors.white54, size: 28),
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.calendar),
           ),
           IconButton(
             icon: const Icon(Icons.notifications_none,
