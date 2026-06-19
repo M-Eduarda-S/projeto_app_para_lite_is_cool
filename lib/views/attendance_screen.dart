@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../controllers/attendance_controller.dart';
 import '../models/student_model.dart';
+import '../routes/app_routes.dart';
 
 class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
@@ -409,7 +410,7 @@ class _BottomNav extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.notifications_none,
                 color: Colors.white54, size: 28),
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.notifications),
           ),
         ],
       ),

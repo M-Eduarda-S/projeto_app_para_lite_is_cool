@@ -451,7 +451,7 @@ class _BottomNav extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.notifications_none,
                 color: Colors.white54, size: 28),
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.notifications),
           ),
         ],
       ),
