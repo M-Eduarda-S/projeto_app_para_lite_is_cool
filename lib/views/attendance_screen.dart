@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../controllers/attendance_controller.dart';
 import '../models/student_model.dart';
 import '../routes/app_routes.dart';
@@ -278,7 +279,13 @@ class _StudentTile extends StatelessWidget {
                 color: Colors.white12,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.face, color: Colors.white54, size: 32),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: SvgPicture.asset(
+                  'assets/icons/presencas.svg',
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
             const SizedBox(width: 16),
             Expanded(
