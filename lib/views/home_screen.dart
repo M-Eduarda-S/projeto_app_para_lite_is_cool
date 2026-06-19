@@ -433,19 +433,25 @@ class _BottomNav extends StatelessWidget {
             icon: const Icon(Icons.dashboard, color: Colors.white, size: 28),
             onPressed: () {},
           ),
-          // New report
-          IconButton(
-            icon: const Icon(Icons.assignment_outlined,
-                color: Colors.white54, size: 28),
-            onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.createReport),
-          ),
           // Attendance
           IconButton(
             icon: const Icon(Icons.group_outlined,
                 color: Colors.white54, size: 28),
             onPressed: () =>
                 Navigator.pushNamed(context, AppRoutes.attendance),
+          ),
+          // Calendar
+          IconButton(
+            icon: const Icon(Icons.calendar_today_outlined,
+                color: Colors.white54, size: 28),
+            onPressed: () =>
+                Navigator.pushNamed(context, AppRoutes.calendar),
+          ),
+          // Notifications
+          IconButton(
+            icon: const Icon(Icons.notifications_none,
+                color: Colors.white54, size: 28),
+            onPressed: () {},
           ),
         ],
       ),
