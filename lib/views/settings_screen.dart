@@ -21,6 +21,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // botão de voltar, ele leva para a tela que estava antes
               Transform.translate(
                 offset: const Offset(-12, 0),
                 child: IconButton(
@@ -81,6 +82,7 @@ class SettingsScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 16),
+                    // nome do usuário está fixo
                     Text(
                       'Juliana Bertolazi Simon',
                       style: GoogleFonts.quicksand(
@@ -104,18 +106,18 @@ class SettingsScreen extends StatelessWidget {
               _SettingsOption(
                 title: 'Adicionar novo usuário',
                 subtitle: 'Clique aqui para cadastrar um novo usuário no sistema.',
-                onTap: () {},
+                onTap: () {}, // funcionalide não implementada, já que é só um protótipo
               ),
               const SizedBox(height: 32),
               _SettingsToggleOption(
                 title: 'Trocar o tema',
-                onChanged: (val) {},
+                onChanged: (val) {}, // funcionalide também não implementada
               ),
               const SizedBox(height: 32),
               _SettingsOption(
                 title: 'Iniciar novo semestre',
                 subtitle: 'Semestre atual: 2026/1',
-                onTap: () {},
+                onTap: () {}, // funcionalide também não implementada
               ),
             ],
           ),
@@ -125,6 +127,7 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
+// Widget reutilizável para o texto e subtítulo
 class _SettingsOption extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -166,6 +169,7 @@ class _SettingsOption extends StatelessWidget {
   }
 }
 
+// Widget com estado para toggle tema claro e escuro (não foi implementado o tema claro)
 class _SettingsToggleOption extends StatefulWidget {
   final String title;
   final ValueChanged<bool> onChanged;
@@ -220,6 +224,7 @@ class _SettingsToggleOptionState extends State<_SettingsToggleOption> {
                   color: Colors.white,
                   shape: BoxShape.circle,
                 ),
+                // icone muda conforme o estado fica lua ou sol
                 child: Icon(
                   _value ? Icons.nightlight_round : Icons.wb_sunny_rounded,
                   size: 16,
