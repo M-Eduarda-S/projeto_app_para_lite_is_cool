@@ -1,5 +1,6 @@
 import '../models/report_model.dart';
 import '../models/user_model.dart';
+import '../utils/date_utils.dart';
 
 class HomeController {
   final UserModel user = const UserModel(
@@ -16,20 +17,7 @@ class HomeController {
     date: DateTime(2026, 6, 11),
   );
 
-  String get formattedToday {
-    final now = DateTime.now();
-    const weekdays = [
-      'Segunda-feira', 'Terça-feira', 'Quarta-feira',
-      'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo',
-    ];
-    const months = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
-    ];
-    final weekday = weekdays[now.weekday - 1];
-    final month = months[now.month - 1];
-    return '$weekday, ${now.day} de $month';
-  }
+  String get formattedToday => AppDateUtils.formattedToday;
 
   String get weekdayGreeting {
     final now = DateTime.now();
