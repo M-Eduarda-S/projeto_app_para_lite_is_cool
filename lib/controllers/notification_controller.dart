@@ -1,8 +1,8 @@
 import '../models/notification_model.dart';
 import '../models/user_model.dart';
+import '../utils/date_utils.dart';
 
 class NotificationController {
-  // Singleton instance
   static final NotificationController _instance = NotificationController._internal();
   factory NotificationController() => _instance;
   NotificationController._internal();
@@ -39,20 +39,7 @@ class NotificationController {
     ),
   ];
 
-  String get formattedToday {
-    final now = DateTime.now();
-    const weekdays = [
-      'Segunda-feira', 'Terça-feira', 'Quarta-feira',
-      'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo',
-    ];
-    const months = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
-    ];
-    final weekday = weekdays[now.weekday - 1];
-    final month = months[now.month - 1];
-    return '$weekday, ${now.day} de $month';
-  }
+  String get formattedToday => AppDateUtils.formattedToday;
 
   void clearAll() {
     notifications.clear();

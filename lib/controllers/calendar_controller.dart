@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/user_model.dart';
 import '../models/event_model.dart';
+import '../utils/date_utils.dart';
 
 class CalendarController {
   final UserModel user = const UserModel(
@@ -8,21 +9,7 @@ class CalendarController {
     role: 'Bolsista',
   );
 
-  String get formattedToday {
-    // For the image example, let's use 16 de Junho
-    final date = DateTime(2026, 6, 16);
-    const weekdays = [
-      'Segunda-feira', 'Terça-feira', 'Quarta-feira',
-      'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo',
-    ];
-    const months = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
-    ];
-    final weekday = weekdays[date.weekday - 1];
-    final month = months[date.month - 1];
-    return '$weekday, ${date.day} de $month';
-  }
+  String get formattedToday => AppDateUtils.formattedToday;
 
   List<EventModel> get events => [
     EventModel(

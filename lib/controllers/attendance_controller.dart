@@ -1,9 +1,9 @@
 import 'dart:math';
 import '../models/student_model.dart';
 import '../models/user_model.dart';
+import '../utils/date_utils.dart';
 
 class AttendanceController {
-  // Singleton instance
   static final AttendanceController _instance = AttendanceController._internal();
   factory AttendanceController() => _instance;
 
@@ -36,20 +36,7 @@ class AttendanceController {
     return _availableIcons[Random().nextInt(_availableIcons.length)];
   }
 
-  String get formattedToday {
-    final now = DateTime.now();
-    const weekdays = [
-      'Segunda-feira', 'Terça-feira', 'Quarta-feira',
-      'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo',
-    ];
-    const months = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
-    ];
-    final weekday = weekdays[now.weekday - 1];
-    final month = months[now.month - 1];
-    return '$weekday, ${now.day} de $month';
-  }
+  String get formattedToday => AppDateUtils.formattedToday;
 
   void togglePresence(int index) {
     students[index].isPresent = !students[index].isPresent;
