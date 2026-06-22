@@ -5,6 +5,8 @@ import '../views/attendance_screen.dart';
 import '../views/calendar_screen.dart';
 import '../views/notification_screen.dart';
 import '../views/report_detail_screen.dart';
+import '../views/notification_screen.dart';
+import '../views/settings_screen.dart';
 
 class AppRoutes {
   static const String home = '/';
@@ -13,6 +15,7 @@ class AppRoutes {
   static const String calendar = '/calendar';
   static const String reportDetail = '/report-detail';
   static const String notifications = '/notifications';
+  static const String settings = '/settings';
 
   static Map<String, WidgetBuilder> get routes => {
     home: (_) => const HomeScreen(),
@@ -21,5 +24,6 @@ class AppRoutes {
     calendar: (_) => const CalendarScreen(),
     reportDetail: (_) => const ReportDetailScreen(),
     notifications: (_) => const NotificationScreen(),
+    settings: (_) => const SettingsScreen(),
   };
 }

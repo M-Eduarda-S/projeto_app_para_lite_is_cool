@@ -14,80 +14,122 @@ Programação para Dispositivos Móveis
 ---
 ## Descrição do Projeto
 
-Aplicativo Android que simula uma calculadora básica com operações de: (*complementar quando soubermos certinho o que vai ter!)
-- Soma
+Este repositório contém o desenvolvimento de um protótipo de aplicativo mobile voltado ao apoio do projeto de extensão "**Projeto Lite is Cool: introdução ao pensamento computacional e à cultura maker**", da UNIVALI.
 
-<br /> <br /> 
+O objetivo do aplicativo não é ser uma solução final funcional, mas sim apresentar uma **proposta de sistema que auxilie na organização das atividades do projeto**, servindo como validação de ideia junto aos responsáveis.
 
+<br /> 
 
-### Funcionalidades
-- Tela de Login com validação (*complementar quando soubermos certinho o que vai ter!)
-- Exibição de diálogo de erro para credenciais inválidas
-- Tela de calculadora com operações básicas
-- Botões habilitados/desabilitados conforme entrada
-- Compartilhamento de resultado via Intent implícita
+### Objetivo
+
+Desenvolver um **protótipo** de aplicação que **ajude na organização e gerenciamento de informações do projeto**, como:
+- Controle de presença dos alunos;
+- Visualização de eventos e datas importantes;
+- Geração de relatórios simples;
+- Centralização de informações.
 <br />
 
-## Tecnologias utilizadas
-- Android Studio
-- Linguagem de programação Flutter
-<br />
-
-### Requisitos para rodar o projeto
-- Ter o Android Studio instalado
-<br />
-
-### Como rodar o projeto
-1. Clone o repositório
-2. Abra no Android Studio
-3. Execute em um emulador ou dispositivo físico
-<br />
-
-## Fluxo do Aplicativo
-1. Usuário insere CPF e senha (*complementar quando soubermos certinho o que vai ter!)
-2. Se válido → vai para calculadora
-3. Se inválido → exibe diálogo de erro
-4. Realiza cálculo
-5. Pode compartilhar o resultado
+**Este projeto é um protótipo:**
+- **Não** possui backend;
+- **Não** está conectado a banco de dados;
+- Os **dados** são simulados/localmente;
+- Algumas funcionalidades são apenas **demonstrativas**.
 <br />
 
 ---
+
+### Funcionalidades (Protótipo)
+- Tela inicial (Dashboard) com resumo de informações;
+- Registro de presença de alunos;
+- Visualização de calendário com eventos e datas;
+- Tela de notificações;
+- Configurações do aplicativo;
+- Simulação de geração de relatórios.
+<br />
+
+---
+
+## Tecnologias utilizadas
+- **Flutter** (framework para desenvolvimento mobile);
+- **Dart** (linguagem principal do aplicativo);
+- **Android Studio** (ambiente de desenvolvimento).
+
+**Observação:** Embora o repositório apresente outras linguagens como C++, CMake, Swift, HTML e C, essas fazem parte da estrutura interna do Flutter para suportar **múltiplas plataformas** (Android, iOS, Web e Desktop). Neste projeto, o desenvolvimento foi realizado **exclusivamente com Flutter e Dart**, sem necessidade de programar diretamente nessas outras linguagens.
+  
+<br />
+
+### Requisitos para rodar o projeto
+- Ter o Android Studio instalado.
+<br />
+
+### Como executar o projeto 
+1. Clone o repositório;
+2. Abra o projeto no Android Studio;
+3. Execute os comandos:
+```bash
+flutter pub get
+flutter run
+```
+4. Rode em um emulador ou dispositivo físico.
+<br />
+
+--- 
+
 ## Arquitetura
 
-O projeto segue o padrão de arquitetura MVVM (Model-View-ViewModel), amplamente utilizado no desenvolvimento Android com Kotlin, que separa as responsabilidades da aplicação em:
+O projeto segue uma adaptação do padrão **MVVM (Model-View-ViewModel)**, utilizando também a camada de **Controller** para organização da lógica.
 
-- Model: responsável pela lógica de negócio (ex: operações da calculadora)
-- View: responsável pela interface com o usuário (Activities, Dialogs)
-- ViewModel: responsável por intermediar a comunicação entre Model e View, mantendo os dados e regras de UI
+* **Model**: responsável pela estrutura dos dados (alunos, relatórios, notificações, etc.);
+* **View**: responsável pela interface com o usuário (telas do aplicativo);
+* **ViewModel**: camada responsável por intermediar a comunicação entre Model e View, organizando os dados e regras de exibição;
+* **Controller**: utilizado para controlar a lógica da aplicação e gerenciar o estado das telas.
 
-Essa abordagem facilita a organização, manutenção e escalabilidade do código.
+No projeto, os controllers desempenham um papel **semelhante** ao ViewModel, sendo responsáveis por manipular os dados, controlar as interações do usuário e organizar a lógica do protótipo. Embora a separação entre **ViewModel** e **Controller** exista conceitualmente, na prática essas responsabilidades foram concentradas nos controllers para **simplificar o desenvolvimento**, mantendo os princípios do padrão MVVM.
+
+Essa **estrutura** facilita a organização, manutenção e possível evolução futura do projeto.
+
 <br />
 
 ---
 ## Estrutura do projeto
-(*complementar quando soubermos certinho o que vai ter!)
 ```text
-app/
-	src/
-		main/
-			java/com/example/calculadoracomloginapp/
-		    	model/
-                    Calculadora.kt
-                view/
-                    MainActivity.kt
-                    CalculadoraActivity.kt
-                    DialogoErro.kt
-                viewmodel/
-                    CalculadoraViewModel.kt
-			res/
-				drawable/
-				layout/
-				    activity_calculadora.xml
-					activity_login.xml
-					dialogo_erro.xml
-				mipmap/
-				values/
-			AndroidManifest.xml
-.gitignore
+android/
+assets/
+ios/
+lib/
+	controllers/
+		attendance_controller.dart
+		home_controller.dart
+		notification_controller.dart
+	models/
+		notification_model.dart
+		report_model.dart
+		student_model.dart
+		user_model.dart
+	routes/
+		app_routes.dart
+	views/
+		attendance_screen.dart
+		calendar_screen.dart
+		create_report_screen.dart
+		home_screen.dart
+		notification_screen.dart
+		placeholder_screen.dart
+		report_detail_screen.dart
+		settings_screen.dart
+	main.dart
+linux/
+macos/
+test/
+web/
+windows/
+.metadata
 README.md
+analysis_options.yaml
+pubspec.lock
+pubspec.yaml
 ```
+
+<br />
+
+**Observação:** Este projeto tem como foco a **prototipação de uma solução**, sendo desenvolvido para fins **acadêmicos** e sem fins lucrativos. O objetivo é demonstrar, de forma prática, como a tecnologia pode contribuir para a **organização** e **melhoria** do projeto de extensão Lite is Cool, **não representando um sistema final completo**.

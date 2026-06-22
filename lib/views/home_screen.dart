@@ -114,15 +114,18 @@ class _Header extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 10),
-            CircleAvatar(
-              radius: 24,
-              backgroundColor: const Color(0xFF3D3D6B),
-              child: ClipOval(
-                child: SvgPicture.asset(
-                  'assets/icons/user_icon.svg',
-                  width: 48,
-                  height: 48,
-                  fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, AppRoutes.settings),
+              child: CircleAvatar(
+                radius: 24,
+                backgroundColor: const Color(0xFF3D3D6B),
+                child: ClipOval(
+                  child: SvgPicture.asset(
+                    'assets/icons/user_icon.svg',
+                    width: 48,
+                    height: 48,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
