@@ -5,7 +5,6 @@ import '../views/attendance_screen.dart';
 import '../views/calendar_screen.dart';
 import '../views/notification_screen.dart';
 import '../views/report_detail_screen.dart';
-import '../views/notification_screen.dart';
 
 class AppRoutes {
   static const String home = '/';
