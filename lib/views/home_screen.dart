@@ -4,12 +4,21 @@ import '../models/report_model.dart';
 import '../routes/app_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   static const Color bgColor = Color(0xFF1A1A2E);
   static const Color cardDark = Color(0xFF252542);
+
+  Future<void> _abrirPastaDoDrive() async {
+    final Uri url = Uri.parse('https://drive.google.com/drive/folders/1rKg0_0GdnKYVpRkmGzJixZtW9aaa-buJ');
+
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      debugPrint('Não foi possível abrir o link: $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 24),
               _BannerCard(
                 greeting: controller.weekdayGreeting,
-                onTap: () => Navigator.pushNamed(context, AppRoutes.createReport),
+                onTap: () => _abrirPastaDoDrive(),
               ),
               const SizedBox(height: 24),
               _QuickActions(
@@ -42,11 +51,7 @@ class HomeScreen extends StatelessWidget {
               if (report != null)
                 _ReportCard(
                   report: report,
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    AppRoutes.reportDetail,
-                    arguments: report,
-                  ),
+                  onTap: () => _abrirPastaDoDrive(),
                 ),
               const SizedBox(height: 24),
               _LastUpdateBanner(label: controller.lastUpdateLabel),
@@ -465,12 +470,10 @@ class _BottomNav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          // 1. Home (Ativo - Branco)
           IconButton(
             icon: const Icon(Icons.dashboard, color: Colors.white, size: 28),
             onPressed: () {},
           ),
-          // 2. Presenças
           IconButton(
             icon: const Icon(Icons.group_outlined, color: Colors.white54, size: 28),
             onPressed: () => Navigator.pushNamed(context, AppRoutes.attendance),
@@ -480,7 +483,6 @@ class _BottomNav extends StatelessWidget {
             icon: const Icon(Icons.calendar_month_outlined, color: Colors.white54, size: 28),
             onPressed: () => Navigator.pushNamed(context, AppRoutes.calendar),
           ),
-          // 4. Notificações (Com a bolinha laranja!)
           IconButton(
             icon: Stack(
               children: [
@@ -492,7 +494,7 @@ class _BottomNav extends StatelessWidget {
                     width: 10,
                     height: 10,
                     decoration: const BoxDecoration(
-                      color: Color(0xFFF37B55), // Cor laranja exata da imagem
+                      color: Color(0xFFF37B55),
                       shape: BoxShape.circle,
                     ),
                   ),

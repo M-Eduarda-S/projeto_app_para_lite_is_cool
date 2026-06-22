@@ -25,21 +25,21 @@ class CalendarController {
   }
 
   List<EventModel> get events => [
-    const EventModel(
+    EventModel(
       title: 'Hoje é aniversário do Fulano 1!',
       date: DateTime(2026, 6, 16),
-      color: Color(0xFF7B5EA7),
+      color: const Color(0xFF7B5EA7),
       isBirthday: true,
     ),
-    const EventModel(
+    EventModel(
       title: 'Apresentação de fim de mês',
       date: DateTime(2026, 6, 16),
-      color: Color(0xFF4A90E2),
+      color: const Color(0xFF4A90E2),
     ),
-    const EventModel(
+    EventModel(
       title: 'Último dia do semestre',
       date: DateTime(2026, 6, 16),
-      color: Color(0xFFF5A623),
+      color: const Color(0xFFF5A623),
     ),
   ];
 }

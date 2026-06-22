@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../controllers/calendar_controller.dart';
 import '../models/event_model.dart';
 import '../routes/app_routes.dart';
+import '../components//custom_header.dart';
 
 class CalendarScreen extends StatelessWidget {
   const CalendarScreen({super.key});
@@ -24,7 +25,11 @@ class CalendarScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _Header(controller: controller),
+              CustomHeader(
+                title: 'Calendário',
+                userName: controller.user.name,
+                userRole: controller.user.role,
+              ),
               const SizedBox(height: 12),
               _DateChip(date: controller.formattedToday),
               const SizedBox(height: 24),
@@ -47,66 +52,6 @@ class CalendarScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _Header extends StatelessWidget {
-  const _Header({required this.controller});
-  final CalendarController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Calendário',
-          style: GoogleFonts.quicksand(
-            color: Colors.white,
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  controller.user.name,
-                  style: GoogleFonts.arimo(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                Text(
-                  controller.user.role,
-                  style: GoogleFonts.arimo(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(width: 10),
-            CircleAvatar(
-              radius: 24,
-              backgroundColor: const Color(0xFF3D3D6B),
-              child: ClipOval(
-                child: SvgPicture.asset(
-                  'assets/icons/user_icon.svg',
-                  width: 48,
-                  height: 48,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
