@@ -25,7 +25,7 @@ O objetivo do aplicativo não é ser uma solução final funcional, mas sim apre
 Desenvolver um **protótipo** de aplicação que **ajude na organização e gerenciamento de informações do projeto**, como:
 - Controle de presença dos alunos;
 - Visualização de eventos e datas importantes;
-- Geração de relatórios simples;
+- Simulação de geração de relatórios;
 - Centralização de informações.
 <br />
 
@@ -44,7 +44,9 @@ Desenvolver um **protótipo** de aplicação que **ajude na organização e gere
 - Visualização de calendário com eventos e datas;
 - Tela de notificações;
 - Configurações do aplicativo;
-- Simulação de geração de relatórios.
+- Acesso simulado a relatórios (via redirecionamento externo).
+
+**Observação sobre relatórios:** A funcionalidade de geração de relatórios não foi implementada neste protótipo. Como alternativa, foi utilizado um redirecionamento para uma pasta no Google Drive, simulando o acesso aos relatórios utilizados no projeto real.
 <br />
 
 ---
@@ -97,11 +99,15 @@ android/
 assets/
 ios/
 lib/
+	components/
+		custom_header.dart 
 	controllers/
 		attendance_controller.dart
+		calendar_controller.dart
 		home_controller.dart
 		notification_controller.dart
 	models/
+		event_model.dart
 		notification_model.dart
 		report_model.dart
 		student_model.dart
@@ -114,8 +120,6 @@ lib/
 		create_report_screen.dart
 		home_screen.dart
 		notification_screen.dart
-		placeholder_screen.dart
-		report_detail_screen.dart
 		settings_screen.dart
 	main.dart
 linux/
