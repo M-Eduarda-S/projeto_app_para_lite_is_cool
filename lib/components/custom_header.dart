@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:projeto_app_para_lite_is_cool/routes/app_routes.dart';
 
 class CustomHeader extends StatelessWidget {
   final String title;
@@ -51,15 +52,20 @@ class CustomHeader extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 10),
-            CircleAvatar(
-              radius: 24,
-              backgroundColor: const Color(0xFF3D3D6B),
-              child: ClipOval(
-                child: SvgPicture.asset(
-                  'assets/icons/user_icon.svg',
-                  width: 48,
-                  height: 48,
-                  fit: BoxFit.cover,
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, AppRoutes.settings);
+              },
+              child: CircleAvatar(
+                radius: 24,
+                backgroundColor: const Color(0xFF3D3D6B),
+                child: ClipOval(
+                  child: SvgPicture.asset(
+                    'assets/icons/user_icon.svg',
+                    width: 48,
+                    height: 48,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
