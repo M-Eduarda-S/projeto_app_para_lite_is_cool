@@ -75,17 +75,6 @@ class CreateReportScreen extends StatelessWidget {
   );
 }
 
-class CalendarScreen extends StatelessWidget {
-  const CalendarScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) => const _PlaceholderScreen(
-    title: 'Calendário',
-    icon: Icons.calendar_month_outlined,
-    description: 'Aqui será exibido o calendário com os encontros agendados do projeto.',
-  );
-}
-
 class ReportDetailScreen extends StatelessWidget {
   const ReportDetailScreen({super.key});
 
