@@ -79,16 +79,13 @@ flutter run
 
 ## Arquitetura
 
-O projeto segue uma adaptação do padrão **MVVM (Model-View-ViewModel)**, utilizando também a camada de **Controller** para organização da lógica.
+O projeto segue o padrão **MVC (Model-View-Controller)**, amplamente utilizado para organização de aplicações, separando responsabilidades em três camadas principais:
 
-* **Model**: responsável pela estrutura dos dados (alunos, relatórios, notificações, etc.);
-* **View**: responsável pela interface com o usuário (telas do aplicativo);
-* **ViewModel**: camada responsável por intermediar a comunicação entre Model e View, organizando os dados e regras de exibição;
-* **Controller**: utilizado para controlar a lógica da aplicação e gerenciar o estado das telas.
+- **Model**: responsável pela estrutura e organização dos dados (alunos, eventos, relatórios, notificações, etc.);
+- **View**: responsável pela interface com o usuário, ou seja, as telas do aplicativo;
+- **Controller**: responsável por controlar a lógica da aplicação, manipulando os dados e gerenciando as interações do usuário com a interface.
 
-No projeto, os controllers desempenham um papel **semelhante** ao ViewModel, sendo responsáveis por manipular os dados, controlar as interações do usuário e organizar a lógica do protótipo. Embora a separação entre **ViewModel** e **Controller** exista conceitualmente, na prática essas responsabilidades foram concentradas nos controllers para **simplificar o desenvolvimento**, mantendo os princípios do padrão MVVM.
-
-Essa **estrutura** facilita a organização, manutenção e possível evolução futura do projeto.
+Essa **estrutura** foi adotada por ser simples, organizada e adequada ao desenvolvimento de um protótipo, facilitando a manutenção e possíveis evoluções futuras do sistema.
 
 <br />
 
