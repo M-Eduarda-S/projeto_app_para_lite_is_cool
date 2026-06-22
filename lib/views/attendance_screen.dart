@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../controllers/attendance_controller.dart';
 import '../models/student_model.dart';
 import '../routes/app_routes.dart';
+import '../components//custom_header.dart';
 
 class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
@@ -39,7 +40,11 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _Header(controller: controller),
+                  CustomHeader(
+                    title: 'Presenças',
+                    userName: controller.user.name,
+                    userRole: controller.user.role,
+                  ),
                   const SizedBox(height: 12),
                   _DateChip(date: controller.formattedToday),
                 ],
@@ -187,61 +192,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _Header extends StatelessWidget {
-  const _Header({required this.controller});
-  final AttendanceController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          'Lista de Presença',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  controller.user.name,
-                  style: const TextStyle(color: Colors.white, fontSize: 13),
-                ),
-                Text(
-                  controller.user.role,
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
-                ),
-              ],
-            ),
-            const SizedBox(width: 10),
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, AppRoutes.settings),
-              child: CircleAvatar(
-                radius: 20,
-                backgroundColor: const Color(0xFF3D3D6B),
-                child: ClipOval(
-                  child: SvgPicture.asset(
-                    'assets/icons/user_icon.svg',
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
