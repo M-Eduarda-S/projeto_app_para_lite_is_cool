@@ -1,7 +1,7 @@
 # Projeto de um aplicativo para o projeto de extensão LITE IS COOL
 
 ### Disciplina:
-Programação para Dispositivos Móveis
+Programação para Dispositivos Móveis - UNIVALI Itajaí
 
 ### Acadêmicos
 - Beatriz Pimentel Bagesteiro Alves
